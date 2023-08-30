@@ -4,6 +4,13 @@ public class Amount {
     private float amount;
     private String unit;
 
+    public Amount() {
+    }
+
+    public Amount(float amount) {
+        this.amount = amount;
+    }
+
     public Amount(float amount, String unit) {
         this.amount = amount;
         this.unit = unit;
@@ -16,6 +23,9 @@ public class Amount {
     public void setAmount(float amount) {
         this.amount = amount;
     }
+    public void addToAmount(float amount){
+        this.amount += amount;
+    }
 
     public String getUnit() {
         return unit;
@@ -27,9 +37,11 @@ public class Amount {
 
     @Override
     public String toString() {
-        return "Amount{" +
-                "amount=" + amount +
-                ", unit='" + unit + '\'' +
-                '}';
+        if (unit=="$"){
+            return unit+amount;
+        }
+        else {
+            return amount+unit;
+        }
     }
 }

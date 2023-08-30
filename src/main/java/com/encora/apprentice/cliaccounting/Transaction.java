@@ -58,14 +58,19 @@ public class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-
     @Override
-    public String toString() {
-        return "Transaction{" +
-                "date=" + date +
-                ", miniTransactions=" + miniTransactions +
-                ", comments=" + comments +
-                ", description='" + description + '\'' +
-                '}';
+    public String toString(){
+        return date+" "+description+
+                "\n"+miniTransactions;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Transaction{\n" +
+//                "date=\n" + date +
+//                ", miniTransactions=\n" + miniTransactions +
+//                ", comments=\n" + comments +
+//                ", description=\n'" + description + '\'' +
+//                '}';
+//    }
 }
