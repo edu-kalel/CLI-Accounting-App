@@ -53,8 +53,13 @@ public class CLIAccounting{
         private KelexCommand parent;
         @Override
         public void run() {
-//            System.out.println("so you have chosen REGISTER MAH BOOOOIIII");
-            System.out.println("So you have chosen the subcommand REGISTER");
+//            System.out.println("So you have chosen the subcommand REGISTER");
+            try {
+                Journal journal = new Journal(parent.file);
+                System.out.println(journal.registerCommand());
+            } catch (FileNotFoundException | ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

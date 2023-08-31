@@ -13,14 +13,35 @@ public class Journal {                          //in this journal, all transacti
     //TODO: Noooo, checar si ya existe account  DOOOOOOOOONEEEE
     private ArrayList<Transaction> transactions;     //array with all the transactions
     private ArrayList<Account> accounts;             //existing accounts
+    private ArrayList<Amount> runningTotals;
 
     public Journal(File file) throws FileNotFoundException, ParseException {    //we receive the initial file, that could be 'index'
         transactions = new ArrayList<Transaction>();
         accounts = new ArrayList<Account>();
+        runningTotals = new ArrayList<Amount>();
         fileReader(file);
     }
     public String printCommand(){
-        return ""+transactions;
+        StringBuilder result = new StringBuilder();
+        for (Transaction transaction : transactions){
+            result.append(transaction.toStringPrintCommand());
+        }
+        return String.valueOf(result);
+    }
+    public String registerCommand(){
+        //TODO: call & print from here the miniT, so the running total can be shown properly
+        //TODO: NMMS NO, HAY Q IR GUARDANDO EL RUNNINGTOTAL EN CADA MINIT, jaja q wei, se cancela lo q está abajo
+        //si q vaya corriendo aquí, en el runningTotals, y q se vaya guardando en cada miniT :D
+        StringBuilder result = new StringBuilder();
+        for (Transaction transaction:transactions){
+//            String dateAndDescription = transaction.toStringRegisterCommand();
+//            String miniTransaction = (transaction.getMiniTransactions().get(0).toStringRegisterCommand());
+//            String runningTotalSoFar = runningTotals.get(0).toString();
+//            String format = "%-50s %-51s %11s\n";
+//            result.append(String.format(format, dateAndDescription, miniTransaction, runningTotalSoFar));
+            result.append(transaction.toStringRegisterCommand());
+        }
+        return String.valueOf(result);
     }
 
     @Override
@@ -98,6 +119,7 @@ public class Journal {                          //in this journal, all transacti
                                 miniTransaction = new MiniTransaction(createAccountTree(elementsForAccount[1], parent));
                             }
                             Amount amount = new Amount();
+                            Amount runningTotal = new Amount();
                             if (elements.length>1){
                                 if (elements[1].contains("$")) {
                                     amount.setUnit("$");
@@ -127,8 +149,27 @@ public class Journal {                          //in this journal, all transacti
                                 amount.setAmount((runningAmountJustInCase.getAmount())*(-1));
                                 amount.setUnit(runningAmountJustInCase.getUnit());
                             }
+
+                            //running total for reg
+                            boolean existsRunningTotal = false;
+                            for (Amount existingRunningTotal:runningTotals){
+                                if (existingRunningTotal.getUnit().equals(amount.getUnit())){
+                                    existingRunningTotal.addToAmount(amount.getAmount());
+                                    existsRunningTotal = true;
+                                    break;
+                                }
+                            }
+                            if (!existsRunningTotal){
+                                Amount newRunningTotal = new Amount(amount.getAmount(), amount.getUnit());
+                                runningTotals.add(newRunningTotal);
+                            }
+//                            ArrayList<Amount> copyOfRT = new ArrayList<Amount>(runningTotals);
+                            //continue building and adding miniT
                             miniTransaction.setAmount(amount);
+//                            System.out.println("runnnig totals added: "+runningTotals);
+                            miniTransaction.setRunningTotals(runningTotals);
                             transaction.addMiniTransaction(miniTransaction);
+//                            System.out.println(miniTransaction);
 //                            transactions.add(transaction);
 //                            createAccountTree(elementsForAccount[1], parent);       //create account tree
 //                            System.out.println(parent.printTreeFromParent());       //print tree (?) masomeno

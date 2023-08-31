@@ -15,6 +15,10 @@ public class Amount {
         this.amount = amount;
         this.unit = unit;
     }
+    public Amount(Amount amountRef){
+        this.amount=amountRef.getAmount();
+        this.unit=amountRef.getUnit();
+    }
 
     public float getAmount() {
         return amount;
@@ -38,10 +42,10 @@ public class Amount {
     @Override
     public String toString() {
         if (unit=="$"){
-            return unit+amount;
+            return unit+String.format("%.2f", amount);
         }
         else {
-            return amount+unit;
+            return String.format("%.2f", amount)+" "+unit;
         }
     }
 }

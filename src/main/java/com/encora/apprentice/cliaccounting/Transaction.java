@@ -1,7 +1,9 @@
 package com.encora.apprentice.cliaccounting;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Transaction {
     private Date date;
@@ -58,10 +60,27 @@ public class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-    @Override
-    public String toString(){
-        return date+" "+description+
-                "\n"+miniTransactions;
+    public String toStringPrintCommand(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        StringBuilder result= new StringBuilder();
+        for (MiniTransaction miniTransaction:miniTransactions){
+            result.append(miniTransaction.toStringPrintCommand());
+        }
+        return formatter.format(date)+" "+description+
+                "\n"+result;
+    }
+    public String toStringRegisterCommand(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yy-MMM-dd");
+        StringBuilder result = new StringBuilder();
+        result.append(miniTransactions.get(0).toStringRegisterCommand());
+        for (int i=1; i<miniTransactions.size();i++){
+            result.append(" ".repeat(51)).append(miniTransactions.get(i).toStringRegisterCommand());
+        }
+        String format ="%-9s \033[0;1m%-40s\u001B[0m %s";
+//        String descriptionFormatted =  "\033[0;1m" + description + "\u001B[0m";
+//        System.out.println(miniTransactions);
+        return String.format(format, formatter.format(date), description, result);
+//        return formatter.format(date)+" "+description;
     }
 
 //    @Override
