@@ -49,5 +49,7 @@ Made in Java, with picocli.
 
 # Examples
 ![Print Command](imgsForReadme/printExample.png)
+
 ![Register Command](imgsForReadme/registerExample.png)
+
 ![Balance Command](imgsForReadme/balanceExample.png)
