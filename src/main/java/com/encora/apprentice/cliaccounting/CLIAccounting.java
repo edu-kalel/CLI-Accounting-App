@@ -17,7 +17,7 @@ public class CLIAccounting{
             })
     static class KelexCommand implements Runnable{
 
-        @CommandLine.Option(names = {"-f", "--files"}, description = "Specify the file", required = true)
+        @CommandLine.Option(names = {"-f", "--file"}, description = "Specify the file", required = true)
         private File file;
         @Override
         public void run() {
