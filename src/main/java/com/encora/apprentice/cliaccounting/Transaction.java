@@ -82,6 +82,14 @@ public class Transaction {
         return String.format(format, formatter.format(date), description, result);
 //        return formatter.format(date)+" "+description;
     }
+//    public String toStringBalanceCommand(){
+//        //TODO: this probably won't be needed
+//        StringBuilder result = new StringBuilder();
+//        for (MiniTransaction miniTransaction:miniTransactions){
+//            result.append(miniTransaction.toStringBalanceCommand());
+//        }
+//        return String.valueOf(result);
+//    }
 
 //    @Override
 //    public String toString() {

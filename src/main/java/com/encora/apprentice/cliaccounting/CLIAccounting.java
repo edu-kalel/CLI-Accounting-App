@@ -23,13 +23,6 @@ public class CLIAccounting{
         public void run() {
 //            System.out.println("this command has been brought to u by the kelex gang");
             System.out.println("Parent command");
-//            try {
-//                Journal journal = new Journal(file);
-//                System.out.println(journal.printCommand());
-//            } catch (FileNotFoundException | ParseException e) {
-//                throw new RuntimeException(e);
-//            }
-
         }
     }
     @CommandLine.Command(name = "print")
@@ -53,7 +46,6 @@ public class CLIAccounting{
         private KelexCommand parent;
         @Override
         public void run() {
-//            System.out.println("So you have chosen the subcommand REGISTER");
             try {
                 Journal journal = new Journal(parent.file);
                 System.out.println(journal.registerCommand());
@@ -70,13 +62,15 @@ public class CLIAccounting{
         private KelexCommand parent;
         @Override
         public void run() {
-//            System.out.println("So you have chosen BALANCE YEAAAAHHHH BOOOOOIIIII");
-            System.out.println("So you have chosen the subcommand BALANCE");
+            try {
+                Journal journal = new Journal(parent.file);
+                System.out.println(journal.balanceCommand());
+            } catch (FileNotFoundException | ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public static void main(String[] args) {
-//        int exitCode = new CommandLine(new CLIAccounting()).execute(args);
-//        System.exit(exitCode);
         new CommandLine(new KelexCommand()).execute(args);
     }
 }

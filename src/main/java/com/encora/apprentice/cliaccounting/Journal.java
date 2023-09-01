@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Journal {                          //in this journal, all transactions will be stored
     //TODO: Journal is pretty much done (?????), maybe prettify the toString
@@ -28,17 +26,27 @@ public class Journal {                          //in this journal, all transacti
         }
         return String.valueOf(result);
     }
+    public String balanceCommand(){
+        //TODO: ya funciona cuando es 1 cuenta con 1 hijo y con 1 tipo de amount, implementar los demás + 1 nuevo running total para el bal
+        StringBuilder result = new StringBuilder();
+        Collections.sort(accounts, new accountsNameComparator());
+        String format;
+        for (Account account:accounts){
+            result.append(account.balanceCommand(0));
+        }
+        result.append("-".repeat(20)).append("\n");
+        for (Amount amount:runningTotals){
+            if (amount.toString().contains("-"))
+                format="\u001B[31m%20s\u001B[0m\n";
+            else
+                format="%20s\n";
+            result.append(String.format(format, amount.toString()));
+        }
+        return String.valueOf(result);
+    }
     public String registerCommand(){
-        //TODO: call & print from here the miniT, so the running total can be shown properly
-        //TODO: NMMS NO, HAY Q IR GUARDANDO EL RUNNINGTOTAL EN CADA MINIT, jaja q wei, se cancela lo q está abajo
-        //si q vaya corriendo aquí, en el runningTotals, y q se vaya guardando en cada miniT :D
         StringBuilder result = new StringBuilder();
         for (Transaction transaction:transactions){
-//            String dateAndDescription = transaction.toStringRegisterCommand();
-//            String miniTransaction = (transaction.getMiniTransactions().get(0).toStringRegisterCommand());
-//            String runningTotalSoFar = runningTotals.get(0).toString();
-//            String format = "%-50s %-51s %11s\n";
-//            result.append(String.format(format, dateAndDescription, miniTransaction, runningTotalSoFar));
             result.append(transaction.toStringRegisterCommand());
         }
         return String.valueOf(result);
@@ -206,5 +214,4 @@ public class Journal {                          //in this journal, all transacti
             return createAccountTree(elements[1], account);
         } else {return account;}
     }
-
 }

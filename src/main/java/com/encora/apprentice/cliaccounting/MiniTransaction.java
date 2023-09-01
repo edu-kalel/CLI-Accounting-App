@@ -30,6 +30,14 @@ public class MiniTransaction {
         return String.format(format, hierarchy, amount);
 //        return "\t"+hierarchy+"\t"+amount+"\n";
     }
+//    public String toStringBalanceCommand(){
+//        //TODO: this probably won't be needed
+//        StringBuilder hierarchy = new StringBuilder();
+//        hierarchy.append(account.getAccountName());
+//        account.getStringWithColons(hierarchy);
+//        hierarchy.append("\t").append(account.getAmounts()).append("\n");
+//        return String.valueOf(hierarchy);
+//    }
     public String toStringRegisterCommand(){
         //TODO: print runningTotals
         StringBuilder hierarchy = new StringBuilder();
@@ -96,6 +104,7 @@ public class MiniTransaction {
 
     public void setAmount(Amount amount) {
         this.amount = amount;
+        account.addAmount(amount);
     }
 
     public ArrayList<Amount> getRunningTotals() {
