@@ -20,9 +20,13 @@ Made in Java, with picocli.
    * Append to the bottom of this text file the next alias:
     
    ```
-    alias kelex='java -jar /PATH_TO_JAR/CLI-Accounting-1.0-SNAPSHOT-all.jar'
+    alias kelex='java -jar /PATH_TO_JAR'
    ``` 
     ## **Replace _PATH_TO_JAR_ with the path to CLI-Accounting-1.0-SNAPSHOT-all.jar**
+   Example:
+   ```
+   alias kelex='java -jar /Users/eliu.mendoza/Projects/CLI-Accounting/build/libs/CLI-Accounting-1.0-SNAPSHOT-all.jar'
+   ```
    * Back at the command line, use the source command to reload the shell profile configuration:
      
    ```
