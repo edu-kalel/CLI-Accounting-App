@@ -26,6 +26,19 @@ public class Journal {                          //in this journal, all transacti
         }
         return String.valueOf(result);
     }
+    public String printCommand(ArrayList<String> parameters){
+        StringBuilder result = new StringBuilder();
+        for (Transaction transaction: transactions){
+            String transactionWF = transaction.toStringPrintCommand();
+            for (String parameter:parameters){
+                if (transactionWF.contains(parameter)){
+                    result.append(transactionWF);
+                    break;
+                }
+            }
+        }
+        return String.valueOf(result);
+    }
     public String balanceCommand(){
         //TODO: ya funciona cuando es 1 cuenta con 1 hijo y con 1 tipo de amount, implementar los demás + 1 nuevo running total para el bal
         StringBuilder result = new StringBuilder();
@@ -49,6 +62,24 @@ public class Journal {                          //in this journal, all transacti
         for (Transaction transaction:transactions){
             result.append(transaction.toStringRegisterCommand());
         }
+        return String.valueOf(result);
+    }
+    public String registerCommand(ArrayList<String> parameters){
+        StringBuilder result = new StringBuilder();
+
+        for (Transaction transaction: transactions){
+            String transactionWF = transaction.toStringRegisterCommand(parameters);
+            for (String parameter:parameters){
+                if (transactionWF.contains(parameter)){
+                    result.append(transactionWF);
+                    break;
+                }
+            }
+        }
+
+//        for (Transaction transaction:transactions){
+//            result.append(transaction.toStringRegisterCommand(parameters));
+//        }
         return String.valueOf(result);
     }
 
